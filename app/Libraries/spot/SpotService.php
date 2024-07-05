@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Libraries\spot;
 
+use App\Enum\TicketStatus;
 use App\Libraries\mongo\CategoryModel;
-
+use App\Libraries\mongo\TicketModel;
 
 class SpotService
 {
@@ -89,7 +90,7 @@ class SpotService
         return form_button([
             'type' => 'button',
              'class' => $class,
-             'title' => $spot-> $spot->vehicle,
+             'title' => $spot->vehicle,
               'data-code' => (string) $spot->ticket_code,
               'content' => "{$spot->plate} {$spot->type}"
         ]);
@@ -130,7 +131,13 @@ class SpotService
          * @todo recuperar os ticket em aberto
          */
 
-        $openTickets = [];
+         $ticketModel = new TicketModel();
+
+
+
+        $openTickets = $ticketModel->getAll(
+            filter: ['status' => TicketStatus::Open->value]
+        );
 
 
         $categoriesPrepared = [];

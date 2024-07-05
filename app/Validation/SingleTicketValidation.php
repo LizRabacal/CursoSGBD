@@ -46,8 +46,8 @@ class SingleTicketValidation
                     'max_length' => 'O cpf tem que ter 14 caracteres.',
                 ],
             ],
-            'observation' => [
-                'label' => 'Veículo',
+            'observations' => [
+                'label' => 'Observações',
                 'rules' => 'permit_empty|max_length[1000]',
                 'errors' => [
                     'max_length' => 'Máximo de caracteres é 1000.',

@@ -72,6 +72,8 @@ class CarsController extends BaseController
         }
 
         $data = $this->validator->getValidated();
+        $cid =
+        $data['customer_id'];
         $data['customer_id'] = new ObjectId($data['customer_id']);
 
 
@@ -83,7 +85,7 @@ class CarsController extends BaseController
 
 
 
-        return redirect()->back()->with('success', 'Sucesso!');
+        return redirect()->to('customers/cars/all/' . $cid)->with('success', 'Sucesso!');
     }
 
 

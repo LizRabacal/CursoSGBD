@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Libraries\mongo\CategoryModel;
+use App\Libraries\ticket\StoreTicketService;
 use App\Validation\SingleTicketValidation;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -11,6 +12,8 @@ use CodeIgniter\HTTP\ResponseInterface;
 class SingleTicketController extends BaseController
 {
     private const VIEWS_DIRECTORY = 'parking/single/';
+
+     
     public function new()
     {
         $categoryId = (string) $this->request->getGet('code');
@@ -43,7 +46,13 @@ class SingleTicketController extends BaseController
             ->with('errors', $this->validator->getErrors())->withInput();
         }
 
+        $storeService = new StoreTicketService();
 
-        dd($this->validator->getValidated());
+        if (!$storeService->createSingle($this->validator->getValidated())) {
+            return redirect()->back()->with('danger', 'Não foi possível criar o tícket avulso');
+        }
+
+
+        return redirect()->route('parking')->with('success', 'Sucesso!');
     }
 }

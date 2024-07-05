@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Libraries\ticket;
 
 use App\Enum\TicketStatus;
+use App\Libraries\mongo\TicketModel;
 use CodeIgniter\I18n\Time;
 use MongoDB\BSON\ObjectId;
 
@@ -13,13 +14,25 @@ use MongoDB\BSON\ObjectId;
 class StoreTicketService
 {
     private ?array $validatedData;
+
+    private TicketModel $model;
+
+
     public function __construct(){
         $this->validatedData = [];
+        $this->model = new TicketModel();
     }
     public function createSingle(array $validatedData): bool
     {
         $this->validatedData = $validatedData;
-        return false;
+        $datatoStore = array_merge(
+            $this->getCommonData(),
+            $this->getSingleData()
+        );
+
+    
+
+        return $this->model->create($datatoStore);
     }
 
     private function getCommonData(): array
@@ -38,9 +51,7 @@ class StoreTicketService
             'vehicle' => $this->validatedData['vehicle'],
             'plate' => $this->validatedData['plate'],
             'observations' => $this->validatedData['observations'],
-            'vehicle' => $this->validatedData['vehicle'],
-            'vehicle' => $this->validatedData['vehicle'],
-
+            'choice' => $this->validatedData['choice']
 
 
 

@@ -24,7 +24,7 @@
             <li class="list-group-item"><strong>CPF: </strong><?php echo $customer['cpf'] ?></li>
             <li class="list-group-item"><strong>Telefone: </strong><?php echo $customer['tel'] ?></li>
             <li class="list-group-item"><strong>Email: </strong><?php echo $customer['email'] ?></li>
-            <li class="list-group-item"><strong>Total de veículos: </strong><?php echo count($c['cars'] ?? []) ?></li>
+            <li class="list-group-item"><strong>Total de veículos: </strong><?php echo count($customer['cars'] ?? []) ?></li>
 
 
 
