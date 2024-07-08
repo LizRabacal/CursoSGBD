@@ -68,6 +68,10 @@
 <div class="modal fade" id="modalChoice" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="modalChoiceToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Criar ticket</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
             <div class="modal-body text-center">
                 <button class="btn btn-lg btn-success mb-2" id="btnCreateNewDetachedTicked" data-bs-dismiss="modal">Abrir Ticket Avulso</button>
@@ -97,10 +101,10 @@
     const URL_NEW_DETACHED_TICKET = '<?php echo route_to('parking/single/new/ticket'); ?>';
 
     // para a view de criação de ticket mensalista
-    const URL_NEW_CUSTOMER_TICKET = '<?php echo route_to('parking.new.customer.ticket'); ?>';
+    const URL_NEW_CUSTOMER_TICKET = '<?php echo route_to('parking/customers/new/ticket'); ?>';
 
     // para a view de detalhes de ticket
-    const URL_SHOW_TICKET = '<?php echo route_to('parking.show.ticket'); ?>';
+    const URL_SHOW_TICKET = '<?php echo route_to('parking/show/ticket'); ?>';
 
 
     // modal de escolha do tipo

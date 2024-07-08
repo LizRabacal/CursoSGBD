@@ -88,7 +88,7 @@
                 <hr>
 
                 <button type="submit" class="btn btn-primary me-2">Criar ticket avulso</button>
-                <a class="btn btn-info" href="<?php route_to('parking')?>">Cancelar abertura</a>
+                <a class="btn btn-info" href="<?= route_to('parking')?>">Cancelar abertura</a>
             </div>
     </div>
 </div>

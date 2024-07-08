@@ -23,9 +23,9 @@ class Ticket extends Entity
 
     public function car():string{
         if(empty(!$this->hasCostumer())){
-            return "{$this->vehicle} {$this->plate}";
+            return "{$this->vehicle}  | {$this->plate}";
         }
-        return $this?->car?->vehicle . ' ' .$this?->car?->plate;
+        return $this?->car?->vehicle . ' | ' .$this?->car?->plate;
     }
 
     public function category():string{
@@ -39,7 +39,7 @@ class Ticket extends Entity
     }
 
     public function choice():string{
-        return TicketChoice::tryFrom($this->type)->toString();
+        return TicketChoice::tryFrom($this->choice)->toString();
 
     }
 
@@ -55,6 +55,11 @@ class Ticket extends Entity
 
     public function hasCostumer():bool{
         return $this->customer !==  null;
+    }
+
+    public function observations(): string
+    {
+        return $this->observations ?? 'sem observações';
     }
 
 }

@@ -23,4 +23,8 @@ enum TicketChoice: string
         };
     }
 
+    public static function isDaily(string $choice) : bool{
+        return self::Day->value === $choice;
+    }
+
 }

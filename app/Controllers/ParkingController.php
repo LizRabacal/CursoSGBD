@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Libraries\mongo\TicketModel;
 use App\Libraries\spot\SpotService;
+use App\Libraries\ticket\TicketCalculationService;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class ParkingController extends BaseController
@@ -37,14 +38,29 @@ class ParkingController extends BaseController
     {
 
         $ticketId = (string) $this->request->getGet('ticket_id');
+        $ticket = (new TicketModel())->getOrFail($ticketId);
+       
+       //calculR valores
+       $ticket = (new TicketCalculationService)->calculate($ticket);
+
+       
         $data = [
-            'title' => 'Disposição das vagas',
-            'spots' => $this->service->getSpots()
+            'title' => 'Ticket',
+            'ticket' => $ticket
           
         ];
 
+        //Calcular o ticket
 
 
-        return view(self::VIEWS_DIRECTORY . 'index', $data);
+
+        return view(self::VIEWS_DIRECTORY . 'show', $data);
+    
+    }
+
+
+    public function close() 
+    {
+
     }
 }

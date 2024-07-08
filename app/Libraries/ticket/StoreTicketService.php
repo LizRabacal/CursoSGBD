@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Libraries\ticket;
 
+use App\Entities\Ticket;
+use App\Enum\PaymentMethod;
 use App\Enum\TicketStatus;
 use App\Libraries\mongo\TicketModel;
 use CodeIgniter\I18n\Time;
@@ -56,5 +58,25 @@ class StoreTicketService
 
 
         ];
+    }
+
+    public function close(Ticket $ticket, string $paymentMethod) : bool {
+        $ticket = (new TicketCalculationService)->calculate($ticket);
+
+        $dataToStore = [
+            'payment_method' => PaymentMethod::from($paymentMethod)->value,
+            'status' => TicketStatus::Closed->value,
+            'category_value' => intval($ticket->category_value),
+            'amount_park' => intval($ticket->amount_park),
+            'amount_paid' => intval($ticket->amount_paid),
+            'elapsed_time' => $ticket->elapsed_time,
+            'updated_at' => Time::now()->format('Y-m-d H:i:s'),
+
+        ];
+        // echo '<pre>';
+        // print_r($dataToStore);
+        // exit;
+
+        return $this->model->update(id: $ticket->id(), data: $dataToStore);
     }
 }

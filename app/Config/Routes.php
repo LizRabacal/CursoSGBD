@@ -55,12 +55,36 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->group('parking', function ($routes) {
 
         $routes->get('/', 'ParkingController::index');
-        // $routes->match(['post', 'put'], 'process', 'ParkingController::process');
+        $routes->get('show/ticket', 'ParkingController::show');
+        $routes->get('close/ticket', 'ParkingController::close');
+        //close/ticket;
 
         $routes->group('single', function ($routes) {
 
-            $routes->get('new/ticket', 'SingleTicketController::new');
             $routes->post('create/ticket', 'SingleTicketController::create');
+            $routes->post('create/ticket', 'SingleTicketController::create');
+            $routes->get('new/ticket', 'SingleTicketController::new');
+            $routes->get('show/ticket', 'SingleTicketController::create');
+            // $routes->match(['post', 'put'], 'process', 'ParkingController::process');
+
+        });
+
+        $routes->group('customers', function ($routes) {
+
+            $routes->post('create/ticket', 'CustomerTicketsController::create');
+            $routes->post('create/ticket', 'CustomerTicketsController::create');
+            $routes->get('new/ticket', 'CustomerTicketsController::new');
+            $routes->get('cars', 'CustomerTicketsController::cars');
+            $routes->get('show/ticket', 'CustomerTicketsController::create');
+            // $routes->match(['post', 'put'], 'process', 'ParkingController::process');
+
+        });
+
+
+        $routes->group('close', function ($routes) {
+
+            $routes->get('ticket/(:segment)', 'CloseTicketController::close/$1');
+            $routes->put('ticket/process/(:segment)', 'CloseTicketController::process/$1');
             // $routes->match(['post', 'put'], 'process', 'ParkingController::process');
 
         });
